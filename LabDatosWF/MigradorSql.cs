@@ -6,7 +6,7 @@ public class MigradorSql
 {
     // Cambia la IP por la del servidor real (usa ipconfig en la PC servidor)
     private const string ConnectionString =
-        "Server=localhost\\SQLEXPRESS01;" +
+        "Server=localhost,1433;" +
         "Database=LabDatos;"                      +
         "User Id=sa;"                             +
         "Password=1234;"                          +

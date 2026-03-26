@@ -34,6 +34,7 @@ public class GestorIndice
 
     public (Ciudadano? resultado, long microsegundos) BuscarSecuencial(int id)
     {
+        BuscarPorId(id);
         var sw = Stopwatch.StartNew();
         var todos = _gestor.LeerTodos();
         Ciudadano? encontrado = null;

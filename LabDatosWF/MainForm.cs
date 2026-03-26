@@ -276,7 +276,7 @@ public class MainForm : Form
 
         var card = MakeCard(new Rectangle(0, 0, 340, 270));
 
-        var lblConn = MakeLabel("Servidor: 192.168.1.100\\SQLEXPRESS,1433", 10, 10, TextMuted);
+        var lblConn = MakeLabel("Servidor: SQLEXPRESS", 10, 10, TextMuted);
         lblConn.Font = new Font("Segoe UI", 8f);
         var lblDb = MakeLabel("Base de datos: LabDatos  |  Usuario: sa", 10, 28, TextMuted);
         lblDb.Font = new Font("Segoe UI", 8f);
@@ -334,6 +334,16 @@ public class MainForm : Form
             AppendLog(_logNivel1, "⚠ Rellena todos los campos correctamente.", Error);
             return;
         }
+        // Verificar que el ID no exista ya en otro slot
+        var todos = _gestor.LeerTodos();
+        bool idDuplicado = todos.Any(x => x.Id == id);
+
+        if (idDuplicado)
+        {
+            AppendLog(_logNivel1, $"⚠ Ya existe un ciudadano con Id:{id} en el archivo.", Error);
+            return;
+        }
+
         var c = new Ciudadano(id, _txtNombre1.Text.Trim(), edad);
         _gestor.GuardarCiudadano(c, pos);
         long offset = (long)pos * Ciudadano.Size;
@@ -360,11 +370,11 @@ public class MainForm : Form
         _gestor.EliminarArchivo();
         var ciudadanos = new[]
         {
-            new Ciudadano(1, "Ana García López",       28),
-            new Ciudadano(2, "Carlos Martínez Ruiz",   35),
-            new Ciudadano(3, "María Hernández Silva",  22),
-            new Ciudadano(4, "José Rodríguez Pérez",   45),
-            new Ciudadano(5, "Laura Sánchez Torres",   31),
+            new Ciudadano(1, "Abdiel Herrera",       28),
+            new Ciudadano(2, "Oscar Ibarra",   35),
+            new Ciudadano(3, "Oscar Almanza",  22),
+            new Ciudadano(4, "Braulio Davila",   45),
+            new Ciudadano(5, "Fernando Tamez",   31),
         };
         for (int i = 0; i < ciudadanos.Length; i++)
             _gestor.GuardarCiudadano(ciudadanos[i], i);
